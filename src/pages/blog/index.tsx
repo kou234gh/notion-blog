@@ -47,7 +47,7 @@ export async function getStaticProps({ preview }) {
   }
 }
 
-const Index = ({ posts = [], preview }) => {
+const IndexSub = ({ posts = [], preview }) => {
   return (
     <>
       <Header titlePre="Blog" />
@@ -80,15 +80,22 @@ const Index = ({ posts = [], preview }) => {
                   </Link>
                 </span>
               </h3>
-              {post.Authors.length > 0 && (
+              {/* {post.Authors.length > 0 && (
                 <div className="authors">By: {post.Authors.join(' ')}</div>
-              )}
+              )} */}
               {post.Date && (
-                <div className="posted">Posted: {getDateStr(post.Date)}</div>
+                <>
+                  <div className="posted">日時: {getDateStr(post.Date)}</div>
+                  <h1>
+                    {(post: any) => {
+                      const day = new Date(post.Date).getFullYear()
+                    }}
+                  </h1>
+                </>
               )}
               <p>
                 {(!post.preview || post.preview.length === 0) &&
-                  'No preview available'}
+                  'プレビューはありません'}
                 {(post.preview || []).map((block, idx) =>
                   textBlock(block, true, `${post.Slug}${idx}`)
                 )}
@@ -101,4 +108,4 @@ const Index = ({ posts = [], preview }) => {
   )
 }
 
-export default Index
+export default IndexSub
